@@ -1,12 +1,37 @@
 [
-    {
-        "name": "MyChar1",
-        "ctype": "merchant",
-        "id": "0123456789"
-    },
-    {
-        "name": "MyChar2",
-        "ctype": "warrior",
-        "id": "9876543210"
-    }
+  {
+    "name": "RodMerchant",
+    "ctype": "merchant",
+    "id": "5096737139589120"
+  },
+  {
+    "name": "RodRanger",
+    "ctype": "ranger",
+    "id": "5269711712944128"
+  },
+  {
+    "name": "RodWarrior",
+    "ctype": "warrior",
+    "id": "6634225826004992"
+  },
+  {
+    "name": "RodMage",
+    "ctype": "mage",
+    "id": "5690342925402112"
+  },
+  {
+    "name": "RodPaladin",
+    "ctype": "paladin",
+    "id": "4916286739447808"
+  },
+  {
+    "name": "RodPriest",
+    "ctype": "priest",
+    "id": "5966134888628224"
+  },
+  {
+    "name": "RodRogue",
+    "ctype": "rogue",
+    "id": "5830542368440320"
+  }
 ]
