@@ -35,14 +35,37 @@ setInterval(() => {
 }, 1000 / 4); // Loops every 1/4 seconds.
 
 function load_characters() {
-  const charNames = new Set(['RodWarrior', 'RodMage', 'RodRogue', 'RodPriest', 'RodRanger', 'RodPaladin'])
-  if (character.ctype === 'merchant') {
-    for (const name of charNames) {
-      stop_character(name);
+  if (character.ctype !== 'merchant') {
+    return;
+  }
+  const allChars = [
+    {
+      name: 'RodWarrior',
+      enabled: true,
+    },
+    {
+      name: 'RodMage',
+      enabled: true,
+    },
+    {
+      name: 'RodRogue',
+      enabled: true,
+    },
+    {
+      name: 'RodPriest'
+    },
+    {
+      name: 'RodRanger',
+    },
+    {
+      name: 'RodPaladin'
     }
-    start_character('RodWarrior');
-    start_character('RodMage');
-    start_character('RodPaladin');
-    attack_mode = false;
+  ];
+  attack_mode = false;
+  for (const char of allChars) {
+    stop_character(char.name);
+  }
+  for (const char of allChars.filter(char => char.enabled)) {
+    start_character(char.name);
   }
 }
