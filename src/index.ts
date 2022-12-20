@@ -1,10 +1,42 @@
+const merchantName = 'RodMerchant';
+
+const allChars = [
+  {
+    name: 'RodWarrior',
+    enabled: true,
+  },
+  {
+    name: 'RodMage',
+    enabled: true,
+  },
+  {
+    name: 'RodRogue',
+    enabled: false,
+  },
+  {
+    name: 'RodPriest'
+  },
+  {
+    name: 'RodRanger',
+    enabled: true,
+  },
+  {
+    name: 'RodPaladin'
+  }
+];
+
 let attack_mode = true;
 
-load_characters();
+(async () => {
+  await load_characters();
+  setup_party();
+  setInterval(loop, 1000 / 4);
+})();
 
-setInterval(() => {
+function loop() {
   use_hp_or_mp();
   loot();
+  join_party();
 
   if (!attack_mode || character.rip || is_moving(character)) {
     return;
@@ -32,40 +64,35 @@ setInterval(() => {
     set_message("Attacking");
     attack(target);
   }
-}, 1000 / 4); // Loops every 1/4 seconds.
+};
 
-function load_characters() {
+async function load_characters() {
   if (character.ctype !== 'merchant') {
     return;
   }
-  const allChars = [
-    {
-      name: 'RodWarrior',
-      enabled: true,
-    },
-    {
-      name: 'RodMage',
-      enabled: true,
-    },
-    {
-      name: 'RodRogue',
-      enabled: true,
-    },
-    {
-      name: 'RodPriest'
-    },
-    {
-      name: 'RodRanger',
-    },
-    {
-      name: 'RodPaladin'
-    }
-  ];
   attack_mode = false;
   for (const char of allChars) {
-    stop_character(char.name);
+    await stop_character(char.name);
   }
   for (const char of allChars.filter(char => char.enabled)) {
     start_character(char.name);
+  }
+}
+
+function setup_party() {
+  if (character.ctype !== 'merchant') {
+    return;
+  }
+  const charNames = new Set(allChars.map(char => char.name))
+  on_party_request = (name) => {
+    if (charNames.has(name)) {
+      accept_party_request(name);
+    }
+  }
+}
+
+function join_party() {
+  if (!character.party) {
+    send_party_request(merchantName);
   }
 }
